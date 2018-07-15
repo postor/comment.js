@@ -12,7 +12,7 @@ server
 
 ```
 const app = require('express')()
-app.use('/commentjs',require('comment.js').route())
+app.use('/commentjs',require('comment.js').router())
 ```
 
 show comment list (react)
@@ -20,8 +20,10 @@ show comment list (react)
 ```
 import { CommentList, removeComment } from 'comment.js'
 
-return (<CommentList
-  topicKey={'global'}
+const topic = 'global'
+
+export default (<CommentList
+  topic={topic}
   user={{
     id:1,
     name:'josh',
@@ -31,7 +33,7 @@ return (<CommentList
       {userContent}
       <span>{comment}<span>
       {comment.userId === user.id && (<a 
-        onClick={()=>removeComment(comment.id)}
+        onClick={()=>removeComment(topic,comment._id)}
       >remove</a>)}
     </li>)
   }}
