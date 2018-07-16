@@ -20,24 +20,24 @@ show comment list (react)
 ```
 import { CommentList, removeComment } from 'comment.js'
 
-const topic = 'global'
+const currentUser={
+  id:1,
+  name:'josh',
+}, topic='global'
 
 export default (<CommentList
+  commentjs="/commentjs"
   topic={topic}
-  user={{
-    id:1,
-    name:'josh',
-  }}
-  rowTemplate={({user,comment,i})=>{
-    return (<li key={i}>
-      {userContent}
-      <span>{comment}<span>
-      {comment.userId === user.id && (<a 
-        onClick={()=>removeComment(topic,comment._id)}
+  RowTemplate={({comment,user,_id})=>{
+    return (<li>
+      <span>{user.name}</span>:
+      <span>{comment.content}</span>
+      {user.id === currentUser.id && (<a 
+        onClick={()=>removeComment(topic,_id)}
       >remove</a>)}
     </li>)
   }}
-  container={({children})=>(<ul>{children}</ul>)}
+  Container={({children})=>(<ul>{children}</ul>)}
 />)
 ```
 
@@ -68,22 +68,22 @@ class MyCommentBox extends Component {
           name:'josh',
         }, url = '/'
 
-        addComment({
-          topic: 'global'
+        addComment('/commentjs','global',{
           userId: user.id,
           user,
           content: commentText,
         })
 
         // news feed to somebody (still using comment logic)
-        const {artileAuthorId} = this.props // e.g. article writer
-        addComment({
-          topic: `user_feed_${artileAuthorId}`
-          artileAuthorId, 
-          content: (<span>
-            <span>{`${user.name} commented "${commentText}", refer:`}</span>
-            <a href={url}>{url}</a>
-          </span>),
+        .then(()=>{
+          const {artileAuthorId} = this.props // e.g. article writer
+          addComment('/commentjs',`user_feed_${artileAuthorId}`,{
+            artileAuthorId, 
+            content: (<span>
+              <span>{`${user.name} commented "${commentText}", refer:`}</span>
+              <a href={url}>{url}</a>
+            </span>),
+          })
         })
       }}>submit</button>
     </div>)

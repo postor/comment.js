@@ -7,15 +7,16 @@ const port = parseInt(process.env.PORT, 10) || 3000
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
-
+console.log('before prepare')
 app.prepare()
   .then(() => {
+    console.log('after prepare')
     const server = express()
     server.use(bodyParser.json())
     server.use(bodyParser.urlencoded({ extended: true }))
 
     server.use('/commentjs', router({
-      mongodbUri: 'mongodb://josh:SKYyYtHl97jwEEVI@cluster0-shard-00-00-gwixn.mongodb.net:27017'||process.env.MONGODB_URI || 'mongodb://localhost:27017',
+      mongodbUri: process.env.MONGODB_URI || 'mongodb://localhost:27017/commentjs',
     }))
 
     server.get('*', (req, res) => {
