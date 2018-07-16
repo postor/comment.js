@@ -1,13 +1,5 @@
 import List from '../react/List'
-
-
-import {
-  Container,
-  RowTemplate,
-  EmptyComponent,
-  LoadingComponent,
-  ShowMoreComponent,
-} from '../react/defaultComponents'
+import Add from '../react/Add'
 
 export default () => (<div>
   <h1>comment.js</h1>
@@ -15,4 +7,6 @@ export default () => (<div>
     commentjs="/commentjs"
     topic="global"
   />
+
+  <Add />
 </div>)

@@ -18,8 +18,8 @@ class List extends Component {
       done: false,
       loading: false,
       comments: [],
-      newest: false,
-      oldest: false,
+      newest: moment().unix(),
+      oldest: moment().unix(),
     }
     this._toClean = []
   }
@@ -57,7 +57,11 @@ class List extends Component {
     //EventSource supported
     const { topic, commentjs } = this.props
     const evtSource = new EventSource(`${commentjs}/sse`)
-    const listenner = () => this.loadNewComments()
+    console.log({ topic, })
+    const listenner = () => {
+      console.log('listenner')
+      this.loadNewComments()
+    }
     evtSource.addEventListener(topic, listenner, false);
     this._toClean.push(() => {
       evtSource.removeEventListener(topic, listenner, false);
@@ -95,16 +99,17 @@ class List extends Component {
     if (loading || done) {
       return
     }
-    this.setState({ loading: true })
+    const newest = moment().unix()
+    this.setState({ loading: true, newest, })
     request
       .get(`${commentjs}/comment`)
       .query(this.getShowMoreQuery())
-      .then(r=>r.body)
+      .then(r => r.body)
       .then((result) => {
         if (result.error) {
           return Promise.reject(result.error)
         }
-        console.log([comments,result.comments, comments.concat(result.comments),result])
+        console.log([comments, result.comments, comments.concat(result.comments), result])
         this.setState({
           loading: false,
           done: result.done,
@@ -121,9 +126,10 @@ class List extends Component {
   }
 
   loadNewComments() {
+    console.log('loadNewComments')
     const { loading, done, comments } = this.state
     const { commentjs } = this.props
-    if (loading || done) {
+    if (loading) {
       return
     }
     this.setState({ loading: true })
@@ -131,7 +137,7 @@ class List extends Component {
     request
       .get(`${commentjs}/comment`)
       .query(this.getNewCommentsQuery())
-      .then(r=>r.body)
+      .then(r => r.body)
       .then((result) => {
         if (result.error) {
           return Promise.reject(result.error)
@@ -152,7 +158,7 @@ class List extends Component {
 
   getShowMoreQuery() {
     const { pageSize = 20, topic } = this.props
-    const { comments, oldest = false } = this.state
+    const { comments, oldest = false, newest = false } = this.state
     const before = oldest ? oldest : moment().unix()
     return {
       topic,
