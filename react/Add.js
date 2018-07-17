@@ -1,4 +1,5 @@
 import { Component } from 'react'
+import PropTypes from 'prop-types'
 import addComment from '../lib/add'
 
 class Add extends Component {
@@ -9,26 +10,26 @@ class Add extends Component {
     }
   }
 
+  static propTypes = {
+    commentjs: PropTypes.string.isRequired,
+    topic: PropTypes.string.isRequired,
+  }
+
   render() {
     const { commentText } = this.state
+    const { commentjs, topic } = this.props
     return (<div>
       <input
         value={commentText}
         onChange={(e) => this.setState({ commentText: e.target.value })}
       />
       <button onClick={() => {
-        const user = {
-          id: 1,
-          name: 'josh',
-        }, url = '/'
-
-        addComment('/commentjs', 'global', {
-          userId: user.id,
-          user,
+        addComment(commentjs, topic, {
           content: commentText,
         })
-          .then((insertedObj) => console.log({ insertedObj }))
-          .catch((error) => console.log({ error }))
+          .then(insertedObj => console.log({ insertedObj }))
+          .then(() => this.setState({ commentText: '' }))
+          .catch(error => console.log({ error }))
       }}>submit</button>
     </div>)
   }

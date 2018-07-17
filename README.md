@@ -1,10 +1,13 @@
 # comment.js
 
+## warning
+
+no access controll yet | 暂时还没有权限控制
+
 ## features
 
-- realtime comment update
-- user feed notification
-- easy to adopt
+- realtime comment update | 实时评论，基于sse
+- easy to adopt | 容易使用
 
 ## usage
 
@@ -15,7 +18,25 @@ const app = require('express')()
 app.use('/commentjs',require('comment.js').router())
 ```
 
-show comment list (react)
+list and add (react)
+
+```
+import { CommentList, CommentAdd } from 'comment.js'
+
+export default (<CommentList
+  commentjs="/commentjs"
+  topic={'global'}
+/>)
+
+
+export default (<CommentAdd
+  commentjs="/commentjs"
+  topic={'global'}
+/>)
+
+```
+
+customized list 
 
 ```
 import { CommentList, removeComment } from 'comment.js'
@@ -41,7 +62,8 @@ export default (<CommentList
 />)
 ```
 
-add comment
+
+add comment customize
 
 ```
 import { Component } from 'react'

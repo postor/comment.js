@@ -3,10 +3,13 @@ import Add from '../react/Add'
 
 export default () => (<div>
   <h1>comment.js</h1>
-  <List 
+  <List
     commentjs="/commentjs"
     topic="global"
   />
 
-  <Add />
+  <Add
+    commentjs="/commentjs"
+    topic="global"
+  />
 </div>)

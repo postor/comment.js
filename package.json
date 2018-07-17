@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "next build",
-    "start": "NODE_ENV=production node server.js",
+    "build": "gulp",
     "dev": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -32,11 +31,12 @@
     "superagent": "^3.8.3"
   },
   "devDependencies": {
+    "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-2": "^6.24.1",
     "gulp": "^3.9.1",
-    "gulp-babel": "^7.0.1",
+    "gulp-babel": "6.x",
     "next": "^6.1.1"
   }
 }

@@ -57,9 +57,7 @@ class List extends Component {
     //EventSource supported
     const { topic, commentjs } = this.props
     const evtSource = new EventSource(`${commentjs}/sse`)
-    console.log({ topic, })
     const listenner = () => {
-      console.log('listenner')
       this.loadNewComments()
     }
     evtSource.addEventListener(topic, listenner, false);
@@ -109,7 +107,6 @@ class List extends Component {
         if (result.error) {
           return Promise.reject(result.error)
         }
-        console.log([comments, result.comments, comments.concat(result.comments), result])
         this.setState({
           loading: false,
           done: result.done,
@@ -126,7 +123,6 @@ class List extends Component {
   }
 
   loadNewComments() {
-    console.log('loadNewComments')
     const { loading, done, comments } = this.state
     const { commentjs } = this.props
     if (loading) {

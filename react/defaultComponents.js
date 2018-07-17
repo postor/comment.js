@@ -1,6 +1,4 @@
-export const RowTemplate = (props) => {
-  return (<li>{JSON.stringify(props)}</li>)
-}
+export const RowTemplate = (props) => (<li>{JSON.stringify(props.comment)}</li>)
 export const Container = (props) => (<div>{props.children}</div>)
 export const EmptyComponent = () => (<span>no comment yet!</span>)
 export const LoadingComponent = () => (<span>loading...</span>)
