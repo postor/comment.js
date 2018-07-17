@@ -27,6 +27,8 @@ class Add extends Component {
           user,
           content: commentText,
         })
+          .then((insertedObj) => console.log({ insertedObj }))
+          .catch((error) => console.log({ error }))
       }}>submit</button>
     </div>)
   }
