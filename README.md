@@ -1,4 +1,4 @@
-# comment.js
+# local-comment
 
 ## warning
 
@@ -15,13 +15,13 @@ server
 
 ```
 const app = require('express')()
-app.use('/commentjs',require('comment.js').router())
+app.use('/commentjs',require('local-comment').router())
 ```
 
 list and add (react)
 
 ```
-import { CommentList, CommentAdd } from 'comment.js'
+import { CommentList, CommentAdd } from 'local-comment'
 
 export default (<CommentList
   commentjs="/commentjs"
@@ -39,7 +39,7 @@ export default (<CommentAdd
 customized list 
 
 ```
-import { CommentList, removeComment } from 'comment.js'
+import { CommentList, removeComment } from 'local-comment'
 
 const currentUser={
   id:1,
@@ -67,7 +67,7 @@ add comment customize
 
 ```
 import { Component } from 'react'
-import { addComment } from 'comment.js'
+import { addComment } from 'local-comment'
 
 class MyCommentBox extends Component {
   constructor(props){

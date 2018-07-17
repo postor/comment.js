@@ -1,5 +1,5 @@
 {
-  "name": "comment.js",
+  "name": "local-comment",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,15 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/postor/comment.js.git"
+    "url": "git+https://github.com/postor/local-comment.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/postor/comment.js/issues"
+    "url": "https://github.com/postor/local-comment/issues"
   },
-  "homepage": "https://github.com/postor/comment.js#readme",
+  "homepage": "https://github.com/postor/local-comment#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
