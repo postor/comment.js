@@ -1,3 +1,5 @@
+import React from 'react'
+
 export const RowTemplate = (props) => (<li>{JSON.stringify(props.comment)}</li>)
 export const Container = (props) => (<div>{props.children}</div>)
 export const EmptyComponent = () => (<span>no comment yet!</span>)

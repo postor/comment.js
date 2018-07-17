@@ -9,6 +9,23 @@ no access controll yet | 暂时还没有权限控制
 - realtime comment update | 实时评论，基于sse
 - easy to adopt | 容易使用
 
+## examples
+
+1.install and start mongodb
+
+2.clone and run
+
+```
+git clone https://github.com/postor/local-comment.git
+cd local-comment/examples/basic
+yarn && yarn dev
+```
+
+3.open browser
+
+http://localhost:3000
+
+
 ## usage
 
 server
@@ -21,7 +38,7 @@ app.use('/commentjs',require('local-comment').router())
 list and add (react)
 
 ```
-import { CommentList, CommentAdd } from 'local-comment'
+import { CommentList, CommentAdd } from 'local-comment/react'
 
 export default (<CommentList
   commentjs="/commentjs"
@@ -39,7 +56,8 @@ export default (<CommentAdd
 customized list 
 
 ```
-import { CommentList, removeComment } from 'local-comment'
+import { removeComment } from 'local-comment'
+import { CommentList } from 'local-comment/react'
 
 const currentUser={
   id:1,
