@@ -28,6 +28,7 @@ class List extends Component {
     commentjs: PropTypes.string.isRequired,
     topic: PropTypes.string.isRequired,
     pageSize: PropTypes.number,
+    refreshInterval: PropTypes.number,
     Container: PropTypes.any,
     RowTemplate: PropTypes.any,
     EmptyComponent: PropTypes.any,
@@ -37,6 +38,7 @@ class List extends Component {
 
   static defaultProps = {
     pageSize: 20,
+    refreshInterval: 60000,
     Container,
     RowTemplate,
     EmptyComponent,
@@ -50,6 +52,12 @@ class List extends Component {
     }
     //browser only
     this.showMore()
+
+    const { refreshInterval } = this.props
+    if (refreshInterval) {
+      const interval = setInterval(() => this.forceUpdate(), refreshInterval)
+      this._toClean.push(() => clearInterval(interval))
+    }
 
     if (typeof EventSource == 'undefined') {
       return
