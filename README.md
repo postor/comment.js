@@ -32,7 +32,7 @@ server
 
 ```
 const app = require('express')()
-app.use('/commentjs',require('local-comment').router())
+app.use('/commentapi',require('local-comment').router())
 ```
 
 list and add (react)
@@ -41,13 +41,13 @@ list and add (react)
 import { CommentList, CommentAdd } from 'local-comment/react'
 
 export default (<CommentList
-  commentjs="/commentjs"
+  commentapi="/commentapi"
   topic={'global'}
 />)
 
 
 export default (<CommentAdd
-  commentjs="/commentjs"
+  commentapi="/commentapi"
   topic={'global'}
 />)
 
@@ -65,7 +65,7 @@ const currentUser={
 }, topic='global'
 
 export default (<CommentList
-  commentjs="/commentjs"
+  commentapi="/commentapi"
   topic={topic}
   RowTemplate={({comment,user,_id})=>{
     return (<li>
@@ -108,7 +108,7 @@ class MyCommentBox extends Component {
           name:'josh',
         }, url = '/'
 
-        addComment('/commentjs','global',{
+        addComment('/commentapi','global',{
           userId: user.id,
           user,
           content: commentText,
@@ -117,7 +117,7 @@ class MyCommentBox extends Component {
         // news feed to somebody (still using comment logic)
         .then(()=>{
           const {artileAuthorId} = this.props // e.g. article writer
-          addComment('/commentjs',`user_feed_${artileAuthorId}`,{
+          addComment('/commentapi',`user_feed_${artileAuthorId}`,{
             artileAuthorId, 
             content: (<span>
               <span>{`${user.name} commented "${commentText}", refer:`}</span>

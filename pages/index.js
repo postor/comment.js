@@ -4,12 +4,12 @@ import Add from '../react/Add'
 export default () => (<div>
   <h1>local-comment</h1>
   <List
-    commentjs="/commentjs"
+    commentapi="/commentapi"
     topic="global"
   />
 
   <Add
-    commentjs="/commentjs"
+    commentapi="/commentapi"
     topic="global"
   />
 </div>)

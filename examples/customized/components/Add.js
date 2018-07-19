@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import addComment from 'local-comment/lib/add'
 
-const commentjs = '/commentjs'
+const commentapi = '/commentapi'
 const topic = 'global'
 
 class Add extends Component {
@@ -31,7 +31,7 @@ class Add extends Component {
         onChange={(e) => this.setState({ commentText: e.target.value })}
       />
       <button onClick={() => {
-        addComment(commentjs, topic, {
+        addComment(commentapi, topic, {
           content: commentText,
           user,
         })

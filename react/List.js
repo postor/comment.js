@@ -25,7 +25,7 @@ class List extends Component {
   }
 
   static propTypes = {
-    commentjs: PropTypes.string.isRequired,
+    commentapi: PropTypes.string.isRequired,
     topic: PropTypes.string.isRequired,
     pageSize: PropTypes.number,
     refreshInterval: PropTypes.number,
@@ -63,8 +63,8 @@ class List extends Component {
       return
     }
     //EventSource supported
-    const { topic, commentjs } = this.props
-    const evtSource = new EventSource(`${commentjs}/sse`)
+    const { topic, commentapi } = this.props
+    const evtSource = new EventSource(`${commentapi}/sse`)
     const listenner = () => {
       this.loadNewComments()
     }
@@ -101,14 +101,14 @@ class List extends Component {
 
   showMore() {
     const { loading, done, comments } = this.state
-    const { commentjs } = this.props
+    const { commentapi } = this.props
     if (loading || done) {
       return
     }
     const newest = moment().unix()
     this.setState({ loading: true, newest, })
     request
-      .get(`${commentjs}/comment`)
+      .get(`${commentapi}/comment`)
       .query(this.getShowMoreQuery())
       .then(r => r.body)
       .then((result) => {
@@ -132,14 +132,14 @@ class List extends Component {
 
   loadNewComments() {
     const { loading, done, comments } = this.state
-    const { commentjs } = this.props
+    const { commentapi } = this.props
     if (loading) {
       return
     }
     this.setState({ loading: true })
 
     request
-      .get(`${commentjs}/comment`)
+      .get(`${commentapi}/comment`)
       .query(this.getNewCommentsQuery())
       .then(r => r.body)
       .then((result) => {

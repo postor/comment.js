@@ -13,8 +13,8 @@ app.prepare()
     server.use(bodyParser.json())
     server.use(bodyParser.urlencoded({ extended: true }))
 
-    server.use('/commentjs', router({
-      mongodbUri: process.env.MONGODB_URI || 'mongodb://localhost:27017/commentjs',
+    server.use('/commentapi', router({
+      mongodbUri: process.env.MONGODB_URI || 'mongodb://localhost:27017/commentapi',
     }))
 
     server.get('*', (req, res) => {

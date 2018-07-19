@@ -11,20 +11,20 @@ class Add extends Component {
   }
 
   static propTypes = {
-    commentjs: PropTypes.string.isRequired,
+    commentapi: PropTypes.string.isRequired,
     topic: PropTypes.string.isRequired,
   }
 
   render() {
     const { commentText } = this.state
-    const { commentjs, topic } = this.props
+    const { commentapi, topic } = this.props
     return (<div>
       <input
         value={commentText}
         onChange={(e) => this.setState({ commentText: e.target.value })}
       />
       <button onClick={() => {
-        addComment(commentjs, topic, {
+        addComment(commentapi, topic, {
           content: commentText,
         })
           .then(insertedObj => console.log({ insertedObj }))

@@ -5,7 +5,7 @@ import moment from 'moment'
 export default () => (<div>
   <h1>local-comment</h1>
   <CommentList
-    commentjs="/commentjs"
+    commentapi="/commentapi"
     topic="global"
     pageSize={5}
     RowTemplate={
