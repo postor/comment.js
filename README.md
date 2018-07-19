@@ -85,7 +85,7 @@ add comment customize
 
 ```
 import { Component } from 'react'
-import { addComment } from 'local-comment'
+import { add as addComment } from 'local-comment/request'
 
 class MyCommentBox extends Component {
   constructor(props){

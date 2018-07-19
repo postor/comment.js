@@ -1,5 +1,6 @@
 import List from '../react/List'
 import Add from '../react/Add'
+import Count from '../react/Count'
 
 export default () => (<div>
   <h1>local-comment</h1>
@@ -9,6 +10,11 @@ export default () => (<div>
   />
 
   <Add
+    commentapi="/commentapi"
+    topic="global"
+  />
+
+  <Count
     commentapi="/commentapi"
     topic="global"
   />

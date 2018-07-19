@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
-import request from 'superagent'
+import { list, find } from '../lib/request'
 
 import {
   Container,
@@ -18,8 +18,6 @@ class List extends Component {
       done: false,
       loading: false,
       comments: [],
-      newest: moment().unix(),
-      oldest: moment().unix(),
     }
     this._toClean = []
   }
@@ -65,8 +63,19 @@ class List extends Component {
     //EventSource supported
     const { topic, commentapi } = this.props
     const evtSource = new EventSource(`${commentapi}/sse`)
-    const listenner = () => {
-      this.loadNewComments()
+    const listenner = (e) => {
+      const obj = JSON.parse(e.data)
+      if (obj.add) {
+        this.loadNewComment(obj._id)
+      } else if (obj.remove) {
+        const { comments } = this.state
+        this.setState({
+          comments: comments.filter(x => x._id != obj._id)
+        })
+      } else if (obj.update) {
+
+      }
+
     }
     evtSource.addEventListener(topic, listenner, false);
     this._toClean.push(() => {
@@ -101,86 +110,50 @@ class List extends Component {
 
   showMore() {
     const { loading, done, comments } = this.state
-    const { commentapi } = this.props
+    const { commentapi, topic, pageSize } = this.props
     if (loading || done) {
       return
     }
     const newest = moment().unix()
     this.setState({ loading: true, newest, })
-    request
-      .get(`${commentapi}/comment`)
-      .query(this.getShowMoreQuery())
-      .then(r => r.body)
-      .then((result) => {
-        if (result.error) {
-          return Promise.reject(result.error)
-        }
-        this.setState({
-          loading: false,
-          done: result.done,
-          comments: comments.concat(result.comments)
-        })
-
-      })
-      .catch(error => {
-        console.log(error)
-        this.setState({
-          loading: false,
-        })
-      })
-  }
-
-  loadNewComments() {
-    const { loading, done, comments } = this.state
-    const { commentapi } = this.props
-    if (loading) {
-      return
-    }
-    this.setState({ loading: true })
-
-    request
-      .get(`${commentapi}/comment`)
-      .query(this.getNewCommentsQuery())
-      .then(r => r.body)
-      .then((result) => {
-        if (result.error) {
-          return Promise.reject(result.error)
-        }
-
-        this.setState({
-          loading: false,
-          comments: result.comments.concat(comments)
-        })
-      })
-      .catch(error => {
-        console.log(error)
-        this.setState({
-          loading: false,
-        })
-      })
-  }
-
-  getShowMoreQuery() {
-    const { pageSize = 20, topic } = this.props
-    const { comments, oldest = false, newest = false } = this.state
-    const before = oldest ? oldest : moment().unix()
-    return {
-      topic,
-      before,
+    const [cancle, promise] = list(commentapi, topic, {
       limit: pageSize,
       skip: comments.length,
-    }
+    })
+    this._toClean.push(cancle)
+    promise
+      .then(resultComments => {
+        const { comments } = this.state
+        this.setState({
+          loading: false,
+          done: resultComments.length < pageSize,
+          comments: [...comments, ...resultComments]
+        })
+        this._toClean = this._toClean.filter(x => x != cancle)
+      })
+      .catch(error => {
+        console.log(error)
+        this.setState({
+          loading: false,
+        })
+        this._toClean = this._toClean.filter(x => x != cancle)
+      })
   }
 
-  getNewCommentsQuery() {
-    const { topic } = this.props
-    const { newest = false } = this.state
-    if (!newest) throw 'something wrong!'
-    return {
-      topic,
-      after: newest,
-      limit: 100,
-    }
+  loadNewComment(_id) {
+    const { commentapi, topic } = this.props
+    const [cancle, promise] = find(commentapi, topic, _id)
+    promise
+      .then(comment => {
+        const { comments } = this.state
+        this.setState({ comments: [comment, ...comments] })
+        this._toClean = this._toClean.filter(x => x != cancle)
+      })
+      .catch(error => {
+        console.log({ error })
+        this._toClean = this._toClean.filter(x => x != cancle)
+      })
+
   }
 }
 

@@ -1,33 +1,40 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { add } from '../lib/request'
+import addComment from 'local-comment/lib/add'
+
+const commentapi = '/commentapi'
+const topic = 'global'
 
 class Add extends Component {
   constructor(props) {
     super(props)
     this.state = {
       commentText: '',
+      user: 'josh',
     }
   }
 
-  static propTypes = {
-    commentapi: PropTypes.string.isRequired,
-    topic: PropTypes.string.isRequired,
-  }
-
   render() {
-    const { commentText } = this.state
-    const { commentapi, topic } = this.props
-    return (<div>
-      <input
+    const { commentText, user } = this.state
+    return (<div style={{
+      position: 'relative'
+    }}>
+      <input style={{
+        width: '20%'
+      }}
+        value={user}
+        onChange={(e) => this.setState({ user: e.target.value })}
+      />:
+      <input style={{
+        width: '60%'
+      }}
         value={commentText}
         onChange={(e) => this.setState({ commentText: e.target.value })}
       />
       <button onClick={() => {
-        const [, promise] = add(commentapi, topic, {
+        addComment(commentapi, topic, {
           content: commentText,
+          user,
         })
-        promise
           .then(insertedObj => console.log({ insertedObj }))
           .then(() => this.setState({ commentText: '' }))
           .catch(error => console.log({ error }))

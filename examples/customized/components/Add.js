@@ -9,12 +9,12 @@ class Add extends Component {
     super(props)
     this.state = {
       commentText: '',
-      user: 'josh',
     }
   }
 
   render() {
-    const { commentText, user } = this.state
+    const { commentText } = this.state
+    const { user } = this.props
     return (<div style={{
       position: 'relative'
     }}>

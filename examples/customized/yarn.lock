@@ -2508,9 +2508,9 @@ loader-utils@1.1.0, loader-utils@^1.0.2, loader-utils@^1.1.0:
     emojis-list "^2.0.0"
     json5 "^0.5.0"
 
-local-comment@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/local-comment/-/local-comment-1.0.4.tgz#5b2fbc94b66640b890463ca0555a5b149294b84a"
+local-comment@^1.0.6:
+  version "1.0.6"
+  resolved "http://registry.npm.taobao.org/local-comment/download/local-comment-1.0.6.tgz#65bec8fba8cf7fe8ccf873324e23f9c5a1c67f68"
   dependencies:
     body-parser "^1.18.3"
     express "^4.16.3"
@@ -2756,11 +2756,7 @@ moment-timezone@^0.5.21:
   dependencies:
     moment ">= 2.9.0"
 
-"moment@>= 2.9.0", moment@^2.11.2:
-  version "2.22.2"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.2.tgz#3c257f9839fc0e93ff53149632239eb90783ff66"
-
-moment@^2.22.2:
+"moment@>= 2.9.0", moment@^2.11.2, moment@^2.22.2:
   version "2.22.2"
   resolved "http://registry.npm.taobao.org/moment/download/moment-2.22.2.tgz#3c257f9839fc0e93ff53149632239eb90783ff66"
 
