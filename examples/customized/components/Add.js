@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import addComment from 'local-comment/lib/add'
+import { add as addComment } from 'local-comment/lib/request'
 
 const commentapi = '/commentapi'
 const topic = 'global'
@@ -9,12 +9,12 @@ class Add extends Component {
     super(props)
     this.state = {
       commentText: '',
+      user: 'josh',
     }
   }
 
   render() {
-    const { commentText } = this.state
-    const { user } = this.props
+    const { commentText, user } = this.state
     return (<div style={{
       position: 'relative'
     }}>
@@ -31,10 +31,11 @@ class Add extends Component {
         onChange={(e) => this.setState({ commentText: e.target.value })}
       />
       <button onClick={() => {
-        addComment(commentapi, topic, {
+        const [, promise] = addComment(commentapi, topic, {
           content: commentText,
           user,
         })
+        promise
           .then(insertedObj => console.log({ insertedObj }))
           .then(() => this.setState({ commentText: '' }))
           .catch(error => console.log({ error }))

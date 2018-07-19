@@ -10,8 +10,8 @@ export default () => (<div>
     pageSize={5}
     RowTemplate={
       ({ comment = {} }) => {
-        const {user,content,_commentTime} = comment
-        return (<li>{user}:{content}<i style={{float:'right'}}>{moment.unix(_commentTime).fromNow()}</i></li>)
+        const { user, content, _commentTime } = comment
+        return (<li>{user}:{content}<i style={{ float: 'right' }}>{moment.unix(_commentTime).fromNow()}</i></li>)
       }
     }
   />

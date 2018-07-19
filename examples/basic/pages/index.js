@@ -1,23 +1,25 @@
-import { CommentList, CommentAdd } from 'local-comment/react'
+import { CommentList, CommentAdd, CommentCount } from 'local-comment/react'
+
+const Group = ({ topic }) => (<div>
+  <h2>topic: {topic}</h2>
+  <CommentList
+    commentapi="/commentapi"
+    topic={topic}
+    pageSize={5}
+  />
+  <CommentCount
+    commentapi="/commentapi"
+    topic={topic}
+  />
+  <CommentAdd
+    commentapi="/commentapi"
+    topic={topic}
+  />
+</div>)
 
 export default () => (<div>
   <h1>local-comment</h1>
-  <CommentList
-    commentapi="/commentapi"
-    topic="global"
-    pageSize={5}
-  />
-  <CommentAdd
-    commentapi="/commentapi"
-    topic="global"
-  />
-  <hr />  
-  <CommentList
-    commentapi="/commentapi"
-    topic="index"
-  />
-  <CommentAdd
-    commentapi="/commentapi"
-    topic="index"
-  />
+  <Group  topic="global"/>
+  <hr />
+  <Group  topic="index"/>
 </div>)
