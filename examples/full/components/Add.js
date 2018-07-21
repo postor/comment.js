@@ -17,8 +17,8 @@ class Add extends Component {
       position: 'relative'
     }}>
       <span style={{
-        width: '20%'
-      }}>{user}</span>:
+        minWidth: '20%'
+      }}>{user}{toUser ? `[reply ${toUser}]` : ``}</span>:
       <input style={{
         width: '60%'
       }}
@@ -57,14 +57,22 @@ class Add extends Component {
   replyComment(toUser) {
     const { commentapi, topic, user } = this.props
     const { commentText } = this.state
+    const feedTopic = `feed_${toUser}`
     const [, promise1] = addComment(commentapi, topic, {
-      content: commentText,
+      content: `@${toUser} ${commentText}`,
       user,
+      toUser,
     })
-    
-    promise1
-      .then(([comment, feed]) => { })
-      .then(insertedObj => console.log({ insertedObj }))
+    const [, promise2] = addComment(commentapi, feedTopic, {
+      content: `${commentText}`,
+      fromUser: user,
+      route: `/`
+    })
+
+    Promise.all([
+      promise1,
+      promise2,
+    ])
       .then(() => this.setState({ commentText: '' }))
       .catch(error => console.log({ error }))
   }
