@@ -20,9 +20,9 @@ class Count extends Component {
     Template: PropTypes.any,
   }
 
-  static defaultProps = {    
-    Loading: ()=>(<span>loading...</span>),
-    Template: ({count})=>(<span>{count}</span>),
+  static defaultProps = {
+    Loading: () => (<span>loading...</span>),
+    Template: ({ count }) => (<span>{count}</span>),
   }
 
   componentDidMount() {
@@ -41,7 +41,7 @@ class Count extends Component {
     const evtSource = new EventSource(`${commentapi}/sse`)
     const listenner = (e) => {
       const obj = JSON.parse(e.data)
-      const { count,inited } = this.state
+      const { count, inited } = this.state
       if (!inited) {
         //not inited
         return
@@ -68,22 +68,22 @@ class Count extends Component {
   }
 
   render() {
-    const {Loading,Template} = this.props
-    const { count,inited } = this.state
-    if(!inited){
+    const { Loading, Template } = this.props
+    const { count, inited } = this.state
+    if (!inited) {
       return (<Loading />)
     }
     return (<Template count={count} />)
   }
 
   loadCount() {
-    const { commentapi, topic, filter={} } = this.props
+    const { commentapi, topic, filter = {} } = this.props
 
     const [cancle, promise] = count(commentapi, topic, filter)
     this._toClean.push(cancle)
     promise
       .then(count => {
-        console.log({count})
+        console.log({ count })
         this.setState({
           count,
           inited: true,

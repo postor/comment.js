@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { add as addComment, patch as patchComment } from 'local-comment/lib/request'
 
 
-class Add extends Component {
+export default class Add extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -47,7 +47,6 @@ class Add extends Component {
       user,
     })
     promise1
-      .then(([comment, feed]) => { })
       .then(insertedObj => console.log({ insertedObj }))
       .then(() => this.setState({ commentText: '' }))
       .catch(error => console.log({ error }))
@@ -66,7 +65,9 @@ class Add extends Component {
     const [, promise2] = addComment(commentapi, feedTopic, {
       content: `${commentText}`,
       fromUser: user,
-      route: `/`
+      href: {
+        pathname: '/'
+      }
     })
 
     Promise.all([
@@ -79,4 +80,3 @@ class Add extends Component {
 
 }
 
-export default Add
