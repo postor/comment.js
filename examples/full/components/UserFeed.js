@@ -20,12 +20,16 @@ export default class UserFeed extends Component {
           <CommentCount
             commentapi={commentapi}
             topic={topic}
+            Template={({ count }) => (<span style={{
+              color: 'red',
+            }}>{count}</span>)}
           />
           <span>feeds of user: {user}</span>
         </h4>
         <CommentList
           commentapi={commentapi}
           topic={topic}
+          pageSize={5}
           RowTemplate={
             ({ comment = {} }) => {
               const { fromUser, content, _commentTime, _id, href } = comment
@@ -39,6 +43,20 @@ export default class UserFeed extends Component {
                 <i style={{ float: 'right' }}>{moment.unix(_commentTime).fromNow()}</i>
                 <p><Link href={href}><a>go to page</a></Link></p>
               </li>)
+            }
+          }
+          ShowMoreComponent={
+            ({ done }) => {
+              if (done) {
+                return false
+              }
+              return (<span>total:<CommentCount
+                commentapi={commentapi}
+                topic={topic}
+                Template={({ count }) => (<span style={{
+                  color: 'red',
+                }}>{count}</span>)}
+              />, only show latest 5</span>)
             }
           }
         />

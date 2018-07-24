@@ -91,7 +91,7 @@ class List extends Component {
   }
 
   render() {
-    const { Container, RowTemplate, EmptyComponent, LoadingComponent } = this.props
+    const { Container, RowTemplate, EmptyComponent, LoadingComponent, ShowMoreComponent } = this.props
     const { comments, loading, done } = this.state
     return (<Container>
       {comments.map((x, i) => (<RowTemplate key={i} comment={x} />))}

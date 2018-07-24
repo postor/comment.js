@@ -41,6 +41,7 @@ export default class GlobalTopic extends Component {
         topic={topic}
         toUser={toUser}
         user={user}
+        setToUser={toUser => this.setState({ toUser })}
       />
     </div>)
   }

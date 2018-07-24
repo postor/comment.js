@@ -33,6 +33,15 @@ server
 ```
 const app = require('express')()
 app.use('/commentapi',require('local-comment').router())
+
+# or with access control
+app.use('/commentapi',(req,res,next)=>{
+  if(canAccess){
+    next()
+  }else{
+    res.json({error: 'access denied'})
+  }
+},require('local-comment').router())
 ```
 
 list and add (react)

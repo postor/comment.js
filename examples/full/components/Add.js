@@ -11,14 +11,24 @@ export default class Add extends Component {
   }
 
   render() {
-    const { user, toUser } = this.props
+    const { user, toUser,setToUser } = this.props
     const { commentText, } = this.state
+
+    const replyTo = toUser?(<span>
+      <span>[reply {toUser} <a
+        style={{
+          color: 'red',
+        }}
+        onClick={()=>setToUser(false)}
+      >X</a>]</span>
+    </span>):false
+
     return (<div style={{
       position: 'relative'
     }}>
       <span style={{
         minWidth: '20%'
-      }}>{user}{toUser ? `[reply ${toUser}]` : ``}</span>:
+      }}>{user}{replyTo}</span>:
       <input style={{
         width: '60%'
       }}
