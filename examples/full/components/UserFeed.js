@@ -1,4 +1,6 @@
 import { Component } from 'react'
+import Link from 'next/link'
+import moment from 'moment'
 import { remove } from 'local-comment/lib/request'
 import { CommentCount, CommentList } from 'local-comment/react'
 
