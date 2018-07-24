@@ -9,6 +9,8 @@ no access controll yet | 暂时还没有权限控制
 - realtime comment update | 实时评论，基于sse
 - easy to adopt | 容易使用
 
+![screenshot](./screenshot.gif)
+
 ## examples
 
 1.install and start mongodb
