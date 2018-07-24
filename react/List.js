@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
-import { list, find } from '../lib/request'
+import { list, find, count } from '../lib/request'
 import { getSse } from '../browser'
 
 import {
@@ -119,20 +119,25 @@ class List extends Component {
     }
     const newest = moment().unix()
     this.setState({ loading: true, newest, })
-    const [cancle, promise] = list(commentapi, topic, {
+    const [cancle1, promise1] = list(commentapi, topic, {
       limit: pageSize,
       skip: comments.length,
     })
-    this._toClean.push(cancle)
-    promise
-      .then(resultComments => {
+    const [cancle2, promise2] = count(commentapi, topic)
+
+    this._toClean.push(cancle1)
+    this._toClean.push(cancle2)
+
+    Promise.all([promise1, promise2])
+      .then(([resultComments, count]) => {
         const { comments } = this.state
+        const finalComments = [...comments, ...resultComments]
         this.setState({
           loading: false,
-          done: resultComments.length < pageSize,
-          comments: [...comments, ...resultComments]
+          done: finalComments.length >= count,
+          comments: finalComments,
         })
-        this._toClean = this._toClean.filter(x => x != cancle)
+        this._toClean = this._toClean.filter(x => x != cancle1 && x != cancle2)
       })
       .catch(error => {
         console.log(error)

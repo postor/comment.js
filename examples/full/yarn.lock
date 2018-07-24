@@ -2533,9 +2533,9 @@ loader-utils@1.1.0, loader-utils@^1.0.2, loader-utils@^1.1.0:
     emojis-list "^2.0.0"
     json5 "^0.5.0"
 
-local-comment@1.1.5:
-  version "1.1.5"
-  resolved "http://registry.npm.taobao.org/local-comment/download/local-comment-1.1.5.tgz#52c315dadaf1bb3d8d5caf1f772572731f450736"
+local-comment@1.1.6:
+  version "1.1.6"
+  resolved "http://registry.npm.taobao.org/local-comment/download/local-comment-1.1.6.tgz#7e4c4062969bdf5f4526f56fe5ffcee3987b26f6"
   dependencies:
     body-parser "^1.18.3"
     express "^4.16.3"

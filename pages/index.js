@@ -7,6 +7,7 @@ export default () => (<div>
   <List
     commentapi="/commentapi"
     topic="global"
+    pageSize = {10}
   />
 
   <Add

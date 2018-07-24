@@ -46,17 +46,11 @@ export default class UserFeed extends Component {
             }
           }
           ShowMoreComponent={
-            ({ done }) => {
-              if (done) {
-                return false
-              }
-              return (<span>total:<CommentCount
-                commentapi={commentapi}
-                topic={topic}
-                Template={({ count }) => (<span style={{
-                  color: 'red',
-                }}>{count}</span>)}
-              />, only show latest 5</span>)
+            ({ showMore, done }) => {
+              return ((<button
+                onClick={() => showMore()}
+                disabled={done}
+              >{done ? 'no more feeds!' : 'Show More!'}</button>))
             }
           }
         />
