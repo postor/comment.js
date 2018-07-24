@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { count } from '../lib/request'
+import { getSse } from '../browser'
 
 
 class Count extends Component {
@@ -32,13 +33,14 @@ class Count extends Component {
     //browser only
     this.loadCount()
 
+    const { topic, commentapi } = this.props
+    const evtSource = getSse(commentapi)
 
-    if (typeof EventSource == 'undefined') {
+    if (!evtSource) {
       return
     }
     //EventSource supported
-    const { topic, commentapi } = this.props
-    const evtSource = new EventSource(`${commentapi}/sse`)
+
     const listenner = (e) => {
       const obj = JSON.parse(e.data)
       const { count, inited } = this.state

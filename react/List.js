@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import { list, find } from '../lib/request'
+import { getSse } from '../browser'
 
 import {
   Container,
@@ -57,12 +58,14 @@ class List extends Component {
       this._toClean.push(() => clearInterval(interval))
     }
 
-    if (typeof EventSource == 'undefined') {
+    const { topic, commentapi } = this.props
+    const evtSource = getSse(commentapi)
+
+    if (!evtSource) {
       return
     }
     //EventSource supported
-    const { topic, commentapi } = this.props
-    const evtSource = new EventSource(`${commentapi}/sse`)
+
     const listenner = (e) => {
       const obj = JSON.parse(e.data)
       if (obj.add) {
