@@ -1708,10 +1708,6 @@ expand-range@^1.8.1:
   dependencies:
     fill-range "^2.1.0"
 
-express-sse@^0.5.0:
-  version "0.5.0"
-  resolved "http://registry.npm.taobao.org/express-sse/download/express-sse-0.5.0.tgz#a0287071869f74dd767fdd09caa93886cc673dfb"
-
 express@^4.16.3:
   version "4.16.3"
   resolved "http://registry.npm.taobao.org/express/download/express-4.16.3.tgz#6af8a502350db3246ecc4becf6b5a34d22f7ed53"
@@ -2533,13 +2529,12 @@ loader-utils@1.1.0, loader-utils@^1.0.2, loader-utils@^1.1.0:
     emojis-list "^2.0.0"
     json5 "^0.5.0"
 
-local-comment@1.1.6:
-  version "1.1.6"
-  resolved "http://registry.npm.taobao.org/local-comment/download/local-comment-1.1.6.tgz#7e4c4062969bdf5f4526f56fe5ffcee3987b26f6"
+local-comment@^1.1.8:
+  version "1.1.8"
+  resolved "http://registry.npm.taobao.org/local-comment/download/local-comment-1.1.8.tgz#c256577026d054779f32b2c31ee94d235be01456"
   dependencies:
     body-parser "^1.18.3"
     express "^4.16.3"
-    express-sse "^0.5.0"
     moment "^2.22.2"
     mongoose "^5.2.4"
     prop-types "^15.6.2"
