@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { add as addComment, patch as patchComment } from 'local-comment/lib/request'
+import { withRouter } from 'next/router'
+import { add as addComment } from 'local-comment/lib/request'
 
 
-export default class Add extends Component {
+class Add extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -11,17 +12,17 @@ export default class Add extends Component {
   }
 
   render() {
-    const { user, toUser,setToUser } = this.props
+    const { user, toUser, setToUser } = this.props
     const { commentText, } = this.state
 
-    const replyTo = toUser?(<span>
+    const replyTo = toUser ? (<span>
       <span>[reply {toUser} <a
         style={{
           color: 'red',
         }}
-        onClick={()=>setToUser(false)}
+        onClick={() => setToUser(false)}
       >X</a>]</span>
-    </span>):false
+    </span>) : false
 
     return (<div style={{
       position: 'relative'
@@ -64,7 +65,7 @@ export default class Add extends Component {
 
 
   replyComment(toUser) {
-    const { commentapi, topic, user } = this.props
+    const { commentapi, topic, user, router } = this.props
     const { commentText } = this.state
     const feedTopic = `feed_${toUser}`
     const [, promise1] = addComment(commentapi, topic, {
@@ -75,9 +76,7 @@ export default class Add extends Component {
     const [, promise2] = addComment(commentapi, feedTopic, {
       content: `${commentText}`,
       fromUser: user,
-      href: {
-        pathname: '/'
-      }
+      href: router
     })
 
     Promise.all([
@@ -90,3 +89,5 @@ export default class Add extends Component {
 
 }
 
+
+export default withRouter(Add)

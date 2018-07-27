@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 const { router } = require('local-comment')
 
 const port = parseInt(process.env.PORT, 10) || 3000
+const ssePort = parseInt(process.env.PORT, 10) || 3001
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
@@ -13,7 +14,7 @@ app.prepare()
     server.use(bodyParser.json())
     server.use(bodyParser.urlencoded({ extended: true }))
 
-    server.use('/commentapi', router({
+    server.use('/commentapi',router({
       mongodbUri: process.env.MONGODB_URI || 'mongodb://localhost:27017/commentapi',
     }))
 

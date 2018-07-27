@@ -3,8 +3,7 @@ import moment from 'moment'
 import { CommentList } from 'local-comment/react'
 import Add from '../components/Add'
 
-const topic = 'global'
-const commentapi = '/commentapi'
+const commentapi = "/commentapi"
 
 export default class GlobalTopic extends Component {
   constructor(props) {
@@ -16,7 +15,8 @@ export default class GlobalTopic extends Component {
 
   render() {
     const { toUser } = this.state
-    const { user } = this.props
+    const { user, topic = 'global' } = this.props
+    const currentUser = user
     return (<div>
       <h4>topic: {topic}</h4>
       <CommentList
@@ -28,9 +28,9 @@ export default class GlobalTopic extends Component {
             const { user, content, _commentTime } = comment
             return (<li>
               <span>{user}:{content}</span>
-              <button
+              {(currentUser != user) && (<button
                 onClick={() => this.setState({ toUser: user })}
-              >reply</button>
+              >reply</button>)}
               <i style={{ float: 'right' }}>{moment.unix(_commentTime).fromNow()}</i>
             </li>)
           }

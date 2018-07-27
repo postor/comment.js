@@ -1,19 +1,22 @@
-import Group from '../components/Group'
-
+import Link from 'next/link'
+import UserFeed from '../components/UserFeed'
 export default () => (<div>
   <h1>comment and feed</h1>
-  <div style={{
-    width: '50%',
-    float: 'left',
-  }}>
-    <Group user="josh" />
-  </div>
-  
-  <div style={{
-    width: '50%',
-    float: 'right',
-  }}>
-    <Group user="postor" />
-  </div>
+  <UserFeed 
+    user='josh'
+  />
+
+  <ul>
+    <li>
+      <Link href="/topic1?user=josh">
+        <a>login as josh</a>
+      </Link>
+    </li>
+    <li>
+      <Link href="/topic1?user=postor">
+        <a>login as postor</a>
+      </Link>
+    </li>
+  </ul>
 
 </div>)
