@@ -34,7 +34,9 @@ server
 
 ```
 const app = require('express')()
-app.use('/commentapi',require('local-comment').router())
+app.use('/commentapi',require('local-comment').router({
+  mongodbUri: process.env.MONGODB_URI || 'mongodb://localhost:27017/commentapi',
+}))
 
 # or with access control
 app.use('/commentapi',(req,res,next)=>{
@@ -43,7 +45,9 @@ app.use('/commentapi',(req,res,next)=>{
   }else{
     res.json({error: 'access denied'})
   }
-},require('local-comment').router())
+},require('local-comment').router({
+  mongodbUri: process.env.MONGODB_URI || 'mongodb://localhost:27017/commentapi',
+}))
 ```
 
 list and add (react)
