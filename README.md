@@ -20,7 +20,9 @@ no access controll yet | 暂时还没有权限控制
 ```
 git clone https://github.com/postor/local-comment.git
 cd local-comment/examples/basic # basic or customized or full 
-yarn && yarn dev
+yarn  
+yarn build 
+NODE_ENV=production yarn start
 ```
 
 3.open browser
