@@ -22,7 +22,7 @@ git clone https://github.com/postor/local-comment.git
 cd local-comment/examples/basic # basic or customized or full 
 yarn  
 yarn build 
-NODE_ENV=production yarn start
+yarn start
 ```
 
 3.open browser
