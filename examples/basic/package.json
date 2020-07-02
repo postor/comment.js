@@ -15,7 +15,7 @@
   "dependencies": {
     "local-comment": "1.1.1",
     "mongodb": "^3.1.1",
-    "next": "^9.3.3",
+    "next": "^9.4.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1"
   }
