@@ -36,6 +36,6 @@
     "babel-preset-stage-2": "^6.24.1",
     "gulp": "^3.9.1",
     "gulp-babel": "6.x",
-    "next": "^9.3.3"
+    "next": "^9.4.2"
   }
 }
